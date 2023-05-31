@@ -16,3 +16,11 @@ To build the project, use the following gradle task:
 ```shell
 ./gradlew buildFatJar
 ```
+
+## Run
+
+To run the fat jar, use
+
+```shell
+java -jar build/libs/ius-all.jar
+```
