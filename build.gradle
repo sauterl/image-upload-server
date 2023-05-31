@@ -1,0 +1,30 @@
+plugins {
+    id 'org.jetbrains.kotlin.jvm' version '1.8.21'
+    id 'io.ktor.plugin' version '2.3.0'
+}
+
+group "com.github.sauterl"
+version "0.0.1"
+mainClassName = "com.github.sauterl.ApplicationKt"
+
+def isDevelopment = project.ext.has("development")
+applicationDefaultJvmArgs = ["-Dio.ktor.development=$isDevelopment"]
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation "io.ktor:ktor-server-core-jvm:$ktor_version"
+    implementation "io.ktor:ktor-server-host-common-jvm:$ktor_version"
+    implementation "io.ktor:ktor-server-status-pages-jvm:$ktor_version"
+    implementation "io.ktor:ktor-server-cors-jvm:$ktor_version"
+    implementation "io.ktor:ktor-server-default-headers-jvm:$ktor_version"
+    implementation "io.ktor:ktor-server-openapi:$ktor_version"
+    implementation "io.ktor:ktor-server-swagger:$ktor_version"
+    implementation "io.ktor:ktor-server-partial-content-jvm:$ktor_version"
+    implementation "io.ktor:ktor-server-netty-jvm:$ktor_version"
+    implementation "ch.qos.logback:logback-classic:$logback_version"
+    testImplementation "io.ktor:ktor-server-tests-jvm:$ktor_version"
+    testImplementation "org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version"
+}
