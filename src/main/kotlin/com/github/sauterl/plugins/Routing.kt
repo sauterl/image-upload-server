@@ -1,5 +1,6 @@
 package com.github.sauterl.plugins
 
+import com.github.sauterl.directory
 import io.ktor.server.routing.*
 import io.ktor.server.response.*
 import io.ktor.server.plugins.statuspages.*
@@ -19,6 +20,7 @@ fun Application.configureRouting() {
 
         var fileDescription = ""
         var fileName = ""
+        var path = ""
 
         post("/upload"){
             val multipartData = call.receiveMultipart()
@@ -31,14 +33,17 @@ fun Application.configureRouting() {
                     is PartData.FileItem -> {
                         fileName = it.originalFileName as String
                         val bytes = it.streamProvider().readBytes()
-                        File("uploads/$fileName").writeBytes(bytes)
+                        path = "${directory}/uploads/$fileName"
+                        val file = File(path)
+                        file.mkdirs()
+                        file.writeBytes(bytes)
                     }
 
                     else -> {}
                 }
                 it.dispose()
             }
-            call.respondText("$fileDescription is uploaded to 'uploads/$fileName'")
+            call.respondText(path)
         }
     }
 }
