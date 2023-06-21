@@ -1,6 +1,7 @@
 package com.github.sauterl.plugins
 
 import com.github.sauterl.directory
+import com.github.sauterl.persistentDir
 import io.ktor.server.routing.*
 import io.ktor.server.response.*
 import io.ktor.server.plugins.statuspages.*
@@ -21,6 +22,7 @@ fun Application.configureRouting() {
         var fileDescription = ""
         var fileName = ""
         var path = ""
+        var persistentPath = ""
 
         post("/upload"){
             val multipartData = call.receiveMultipart()
@@ -34,9 +36,13 @@ fun Application.configureRouting() {
                         fileName = it.originalFileName as String
                         val bytes = it.streamProvider().readBytes()
                         path = "${directory}/uploads/$fileName"
+                        persistentPath = "${persistentDir}/i_$fileName"
                         val file = File(path)
+                        val pFile = File(persistentPath)
                         file.mkdirs()
+                        pFile.mkdirs()
                         file.writeBytes(bytes)
+                        pFile.writeBytes(bytes)
                     }
 
                     else -> {}
