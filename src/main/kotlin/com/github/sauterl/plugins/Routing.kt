@@ -23,6 +23,7 @@ fun Application.configureRouting() {
         var fileName = ""
         var path = ""
         var persistentPath = ""
+        var jsonPath = ""
 
         post("/upload"){
             val multipartData = call.receiveMultipart()
@@ -31,6 +32,9 @@ fun Application.configureRouting() {
                 when(it){
                     is PartData.FormItem -> {
                         fileDescription = it.value
+                        jsonPath = "${directory}/uploads/${it.name}.json"
+                        val jFile = File(jsonPath)
+                        jFile.writeText(fileDescription)
                     }
                     is PartData.FileItem -> {
                         fileName = it.originalFileName as String
@@ -51,5 +55,6 @@ fun Application.configureRouting() {
             }
             call.respondText(path)
         }
+
     }
 }
