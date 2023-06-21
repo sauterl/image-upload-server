@@ -12,6 +12,7 @@ lateinit var directory : String
 lateinit var persistentDir: String
     internal set
 
+
 fun main(args: Array<String>) {
     if(args.isNotEmpty()){
         directory = args[0]

@@ -36,12 +36,12 @@ fun Application.configureRouting() {
                         fileName = it.originalFileName as String
                         val bytes = it.streamProvider().readBytes()
                         path = "${directory}/uploads/$fileName"
-                        persistentPath = "${persistentDir}/i_$fileName"
                         val file = File(path)
-                        val pFile = File(persistentPath)
                         file.mkdirs()
-                        pFile.mkdirs()
                         file.writeBytes(bytes)
+                        persistentPath = "${persistentDir}/i_$fileName"
+                        val pFile = File(persistentPath)
+                        pFile.mkdirs()
                         pFile.writeBytes(bytes)
                     }
 
