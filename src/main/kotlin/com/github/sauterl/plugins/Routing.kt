@@ -39,7 +39,7 @@ fun Application.configureRouting() {
                         val file = File(path)
                         //file.mkdirs()
                         file.writeBytes(bytes)
-                        persistentPath = "${persistentDir}/i_$fileName"
+                        persistentPath = "${persistentDir}/${fileName}"
                         val pFile = File(persistentPath)
                         //pFile.mkdirs()
                         pFile.writeBytes(bytes)
